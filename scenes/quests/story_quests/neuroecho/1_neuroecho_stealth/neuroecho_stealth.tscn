@@ -118,4 +118,5 @@ collected_dialogue = ExtResource("10_y2kyn")
 [node name="Cinematic" type="Node2D" parent="."]
 script = ExtResource("11_a8mam")
 dialogue = ExtResource("12_utjs5")
+next_scene = "uid://bkevicwvq4e7"
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
