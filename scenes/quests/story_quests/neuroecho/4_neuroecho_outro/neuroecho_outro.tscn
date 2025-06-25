@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://b7jb2p0ndehkn"]
+[gd_scene load_steps=8 format=4 uid="uid://b7jb2p0ndehkn"]
 
 [ext_resource type="PackedScene" uid="uid://cfcgrfvtn04yp" path="res://scenes/ui_elements/hud/hud.tscn" id="1_3jt3h"]
 [ext_resource type="TileSet" uid="uid://07fq3rspk8ia" path="res://scenes/tileset.tres" id="2_7dhhe"]
 [ext_resource type="SpriteFrames" uid="uid://vwf8e1v8brdp" path="res://scenes/quests/story_quests/template/template_player_components/template_player.tres" id="3_a5ikx"]
 [ext_resource type="Texture2D" uid="uid://ophmeiq3wqlj" path="res://assets/Backgrounds/outro.png" id="3_usgnq"]
+[ext_resource type="Texture2D" uid="uid://drnldh1pdyxr" path="res://scenes/quests/story_quests/neuroecho/0_neuroecho_intro/neuroecho_intro_components/Inicio.png" id="4_0ldb1"]
 [ext_resource type="Script" uid="uid://x1mxt6bmei2o" path="res://scenes/ui_elements/cinematic/cinematic.gd" id="4_b0q8u"]
 [ext_resource type="Resource" uid="uid://bakt76jqwmubw" path="res://scenes/quests/story_quests/neuroecho/4_neuroecho_outro/neuroecho_outro_components/neuroecho_outro.dialogue" id="6_usgnq"]
 
@@ -23,6 +24,11 @@ metadata/_edit_lock_ = true
 position = Vector2(479.75, 286.875)
 scale = Vector2(0.622721, 0.560791)
 texture = ExtResource("3_usgnq")
+
+[node name="IntroImage" type="Sprite2D" parent="TileMapLayers/Sprite2D"]
+position = Vector2(440.406, 128.613)
+scale = Vector2(0.211106, 0.211106)
+texture = ExtResource("4_0ldb1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(153, 366)
