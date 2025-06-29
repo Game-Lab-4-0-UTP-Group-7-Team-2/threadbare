@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dnemvrr272exh"]
+[gd_scene load_steps=26 format=3 uid="uid://dnemvrr272exh"]
 
 [ext_resource type="Script" uid="uid://dnp0tjloec2d7" path="res://scenes/game_logic/stealth_game_logic.gd" id="1_f4gfx"]
 [ext_resource type="Texture2D" uid="uid://b1hranincqps3" path="res://assets/Backgrounds/Fragmentos.png" id="2_ekj2j"]
 [ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="3_1o38c"]
 [ext_resource type="Texture2D" uid="uid://3s1ovxd3k0jd" path="res://assets/juegos/frag1.png" id="3_6x230"]
 [ext_resource type="Texture2D" uid="uid://b21p58spvthq5" path="res://assets/juegos/frag2.png" id="4_ie4bk"]
-[ext_resource type="Script" uid="uid://bwkdvdmv4m7kp" path="res://scenes/quests/story_quests/neuroecho/1_neuroecho_stealth/clip_1.gd" id="4_xwdwb"]
+[ext_resource type="Script" uid="uid://bwkdvdmv4m7kp" path="res://scenes/quests/story_quests/neuroecho/1_neuroecho_stealth/ClipDrag.gd" id="4_xwdwb"]
 [ext_resource type="PackedScene" uid="uid://dua6mynlw2ptw" path="res://scenes/game_elements/props/checkpoint/checkpoint.tscn" id="5_6koiv"]
 [ext_resource type="Texture2D" uid="uid://dv1s8a3564ob5" path="res://assets/juegos/frag3.png" id="5_ie4bk"]
 [ext_resource type="Resource" uid="uid://cppk2qynt485b" path="res://scenes/quests/story_quests/template/1_template_stealth/template_stealth_components/template_checkpoint.dialogue" id="6_7jvuh"]
@@ -22,6 +22,8 @@
 [ext_resource type="Script" uid="uid://ou2b1d6rsmw4" path="res://scenes/quests/story_quests/neuroecho/1_neuroecho_stealth/slot_3.gd" id="15_f10m8"]
 [ext_resource type="Script" uid="uid://bcbea8gyckjm3" path="res://scenes/quests/story_quests/neuroecho/1_neuroecho_stealth/slot_4.gd" id="16_qssq8"]
 [ext_resource type="Script" uid="uid://w0ai4wgwajoe" path="res://scenes/quests/story_quests/neuroecho/1_neuroecho_stealth/slot_5.gd" id="17_38qjg"]
+
+[sub_resource type="GDScript" id="GDScript_ksi81"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ie4bk"]
 bg_color = Color(1, 1, 1, 1)
@@ -46,6 +48,7 @@ color = Color(0.481789, 0.48179, 0.481789, 1)
 
 [node name="TileMapLayers" type="Node2D" parent="."]
 y_sort_enabled = true
+script = SubResource("GDScript_ksi81")
 
 [node name="TextureRect" type="TextureRect" parent="TileMapLayers"]
 offset_right = 1918.0
@@ -54,46 +57,45 @@ texture = ExtResource("2_ekj2j")
 
 [node name="ClipsContainer" type="HBoxContainer" parent="TileMapLayers"]
 custom_minimum_size = Vector2(100, 100)
-offset_left = 1254.0
-offset_top = 536.0
-offset_right = 3819.0
-offset_bottom = 1566.0
-scale = Vector2(0.2, 0.2)
-size_flags_horizontal = 3
-size_flags_vertical = 3
+offset_left = 838.0
+offset_top = 819.0
+offset_right = 2354.0
+offset_bottom = 1141.0
+scale = Vector2(0.5, 0.5)
 
-[node name="clip1" type="TextureButton" parent="TileMapLayers/ClipsContainer"]
-custom_minimum_size = Vector2(500, 0)
+[node name="clip1" type="TextureRect" parent="TileMapLayers/ClipsContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-texture_normal = ExtResource("3_6x230")
-stretch_mode = 0
+texture = ExtResource("3_6x230")
+expand_mode = 1
 script = ExtResource("4_xwdwb")
 
-[node name="clip2" type="TextureButton" parent="TileMapLayers/ClipsContainer"]
-custom_minimum_size = Vector2(300, 40)
+[node name="clip2" type="TextureRect" parent="TileMapLayers/ClipsContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-texture_normal = ExtResource("4_ie4bk")
-stretch_mode = 0
+texture = ExtResource("4_ie4bk")
+expand_mode = 1
 script = ExtResource("6_8iyxj")
 
-[node name="clip3" type="TextureButton" parent="TileMapLayers/ClipsContainer"]
-custom_minimum_size = Vector2(300, 40)
+[node name="clip3" type="TextureRect" parent="TileMapLayers/ClipsContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-texture_normal = ExtResource("5_ie4bk")
-stretch_mode = 0
+texture = ExtResource("5_ie4bk")
+expand_mode = 1
 script = ExtResource("8_xqya5")
 
-[node name="clip4" type="TextureButton" parent="TileMapLayers/ClipsContainer"]
-clip_contents = true
+[node name="clip4" type="TextureRect" parent="TileMapLayers/ClipsContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-texture_normal = ExtResource("6_xwdwb")
-stretch_mode = 0
+texture = ExtResource("6_xwdwb")
+expand_mode = 1
 script = ExtResource("10_lun5j")
 
-[node name="clip5" type="TextureButton" parent="TileMapLayers/ClipsContainer"]
-custom_minimum_size = Vector2(300, 40)
+[node name="clip5" type="TextureRect" parent="TileMapLayers/ClipsContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-texture_normal = ExtResource("7_8iyxj")
+texture = ExtResource("7_8iyxj")
+expand_mode = 1
 script = ExtResource("12_vg2nu")
 
 [node name="TimelineContainer" type="HBoxContainer" parent="TileMapLayers"]
@@ -166,7 +168,7 @@ editor_draw_limits = true
 y_sort_enabled = true
 
 [node name="Checkpoint" parent="Checkpoints" instance=ExtResource("5_6koiv")]
-position = Vector2(180, 910)
+position = Vector2(939, 776)
 dialogue = ExtResource("6_7jvuh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Checkpoints/Checkpoint"]

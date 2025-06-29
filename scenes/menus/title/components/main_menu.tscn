@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://wgmdsj1sbmja"]
+[gd_scene load_steps=3 format=3 uid="uid://wgmdsj1sbmja"]
 
-[ext_resource type="Texture2D" uid="uid://kalfq1qem3ak" path="res://assets/first_party/logo/threadbare-logo.png" id="1_hgbs1"]
 [ext_resource type="Theme" uid="uid://cvitou84ni7qe" path="res://scenes/ui_elements/dialogue/components/theme.tres" id="1_vmxej"]
 [ext_resource type="Script" uid="uid://bkl8j1as8ylag" path="res://scenes/menus/title/components/main_menu.gd" id="1_xuf5f"]
 
@@ -8,39 +7,35 @@
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 4.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_vmxej")
 script = ExtResource("1_xuf5f")
 
-[node name="LogoContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 128
-
-[node name="Logo" type="TextureRect" parent="LogoContainer"]
-custom_minimum_size = Vector2(1200, 0)
-layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("1_hgbs1")
-expand_mode = 5
-stretch_mode = 4
-
 [node name="ButtonBoxMargins" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 8
-theme_override_constants/margin_left = 128
-theme_override_constants/margin_right = 128
+size_flags_horizontal = 10
+size_flags_vertical = 8
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 70
 
 [node name="ButtonBox" type="VBoxContainer" parent="ButtonBoxMargins"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
+theme_override_constants/separation = 10
 
 [node name="StartButton" type="Button" parent="ButtonBoxMargins/ButtonBox"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BigFlatButton"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Start"
 flat = true
 
@@ -48,6 +43,7 @@ flat = true
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BigFlatButton"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Options"
 flat = true
 
@@ -55,6 +51,7 @@ flat = true
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BigFlatButton"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Credits"
 flat = true
 
@@ -62,6 +59,7 @@ flat = true
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"BigFlatButton"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Exit Game"
 flat = true
 
