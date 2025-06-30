@@ -179,6 +179,7 @@ debug_color = Color(0, 0, 0, 0.42)
 [node name="Cinematic" type="Node2D" parent="."]
 script = ExtResource("11_a8mam")
 dialogue = ExtResource("12_utjs5")
+next_scene = "uid://bkevicwvq4e7"
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
 
 [connection signal="pressed" from="TileMapLayers/Button" to="StealthGameLogic" method="_on_button_pressed"]

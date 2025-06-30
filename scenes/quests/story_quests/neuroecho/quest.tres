@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_bk6j1")
-title = ""
+title = "Neuroecho"
 description = ""
 authors = Array[String]([])
 affiliation = ""
-first_scene = "uid://c1gdct760l86h"
+first_scene = "uid://b2jm5umg5t7ac"
 animation_name = &""
 metadata/_custom_type_script = "uid://dts1hwdy3phin"
