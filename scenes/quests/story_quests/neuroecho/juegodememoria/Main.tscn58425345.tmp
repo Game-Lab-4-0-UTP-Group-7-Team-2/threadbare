@@ -1,0 +1,117 @@
+[gd_scene load_steps=8 format=3 uid="uid://csm8wqf574fj8"]
+
+[ext_resource type="Script" uid="uid://dghids2f4se3u" path="res://scenes/quests/story_quests/neuroecho/juegodememoria/Main.gd" id="1_glv2v"]
+[ext_resource type="Texture2D" uid="uid://brid7qpypn4wy" path="res://assets/imagenes/Eco.png" id="2_cm0pq"]
+[ext_resource type="FontFile" uid="uid://cr5ax8nsixhxw" path="res://assets/fuentes/PressStart2P-Regular.ttf" id="3_r0du0"]
+[ext_resource type="AudioStream" uid="uid://pw8cl450ufmb" path="res://assets/sonidos/alerta.wav" id="4_cm0pq"]
+[ext_resource type="Texture2D" uid="uid://s6v7cgv8ccr1" path="res://assets/imagenes/ElenaTiemoi.png" id="5_fos0i"]
+
+[sub_resource type="FontVariation" id="FontVariation_cm0pq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cm0pq"]
+bg_color = Color(0.14538, 0.71985, 0.219348, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[node name="Main" type="Node2D"]
+position = Vector2(568, 382)
+script = ExtResource("1_glv2v")
+
+[node name="Eco" type="TextureRect" parent="."]
+offset_left = -568.0
+offset_top = -387.0
+offset_right = 968.0
+offset_bottom = 637.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture = ExtResource("2_cm0pq")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(300, 200)
+offset_left = 73.0
+offset_top = 58.0
+offset_right = 1010.0
+offset_bottom = 603.0
+
+[node name="CardGrid" type="GridContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+columns = 4
+
+[node name="Titulo" type="RichTextLabel" parent="."]
+offset_left = 163.0
+offset_top = 12.0
+offset_right = 895.0
+offset_bottom = 66.0
+theme_override_colors/default_color = Color(1, 0.109804, 0.921569, 1)
+theme_override_fonts/normal_font = ExtResource("3_r0du0")
+theme_override_font_sizes/normal_font_size = 40
+text = "DESCUBRE LOS PARES"
+
+[node name="CuentaRegresiva" type="Timer" parent="."]
+autostart = true
+
+[node name="Alarma" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_cm0pq")
+
+[node name="UIVictory" type="CanvasLayer" parent="."]
+
+[node name="LabelGanaste" type="Label" parent="UIVictory"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -242.0
+offset_top = -40.0
+offset_right = 213.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0.638955, 0, 1)
+theme_override_fonts/font = SubResource("FontVariation_cm0pq")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_cm0pq")
+text = "🎉¡GANASTE!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UIBoton" type="CanvasLayer" parent="."]
+
+[node name="BotonReintentar" type="Button" parent="UIBoton"]
+visible = false
+custom_minimum_size = Vector2(200, 80)
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -281.0
+offset_top = -370.0
+offset_right = 265.0
+offset_bottom = -266.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 70
+text = "REINTENTAR 🔂"
+
+[node name="ElenaTiem" type="Sprite2D" parent="."]
+position = Vector2(-237, 303)
+scale = Vector2(0.848937, 0.832194)
+texture = ExtResource("5_fos0i")
+
+[node name="TimerLabel" type="Label" parent="."]
+offset_left = -267.0
+offset_top = 313.0
+offset_right = -102.0
+offset_bottom = 446.0
+theme_override_font_sizes/font_size = 100
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="UIBoton/BotonReintentar" to="." method="_on_boton_reintentar_pressed"]

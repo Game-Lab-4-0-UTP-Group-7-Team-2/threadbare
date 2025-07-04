@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bntq4at3b2vae"
-path="res://.godot/imported/frag4.png-44a953c78cee8bfed0dccf166b4e5a17.ctex"
+uid="uid://bfex7a7rfigf8"
+path="res://.godot/imported/Green Classic Ecology Branding Badge Logo.png-e964f91f9b79d8443a76da077281de72.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/juegos/frag4.png"
-dest_files=["res://.godot/imported/frag4.png-44a953c78cee8bfed0dccf166b4e5a17.ctex"]
+source_file="res://assets/personajes/Green Classic Ecology Branding Badge Logo.png"
+dest_files=["res://.godot/imported/Green Classic Ecology Branding Badge Logo.png-e964f91f9b79d8443a76da077281de72.ctex"]
 
 [params]
 

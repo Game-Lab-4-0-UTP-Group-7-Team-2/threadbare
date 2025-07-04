@@ -157,7 +157,7 @@ offset_bottom = 420.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 
 [node name="Player" parent="." instance=ExtResource("3_1o38c")]
-position = Vector2(126, 365)
+position = Vector2(202, 379)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 process_mode = 3
@@ -168,10 +168,6 @@ limit_top = 0
 position_smoothing_enabled = true
 editor_draw_limits = true
 
-[node name="Timer" type="Timer" parent="Player"]
-wait_time = 60.0
-one_shot = true
-
 [node name="ScreenOverlay" type="CanvasLayer" parent="."]
 
 [node name="Cinematic" type="Node2D" parent="."]
@@ -179,6 +175,8 @@ script = ExtResource("11_a8mam")
 dialogue = ExtResource("12_utjs5")
 next_scene = "uid://bkevicwvq4e7"
 metadata/_custom_type_script = "uid://x1mxt6bmei2o"
+
+[node name="Timer" type="Timer" parent="."]
 
 [node name="Label" type="Label" parent="."]
 offset_left = 817.0
@@ -188,4 +186,3 @@ offset_bottom = 636.0
 
 [connection signal="pressed" from="TileMapLayers/Button" to="StealthGameLogic" method="_on_button_pressed"]
 [connection signal="pressed" from="TileMapLayers/Button2" to="StealthGameLogic" method="_on_button_pressed"]
-[connection signal="timeout" from="Player/Timer" to="Player" method="_on_timer_timeout"]

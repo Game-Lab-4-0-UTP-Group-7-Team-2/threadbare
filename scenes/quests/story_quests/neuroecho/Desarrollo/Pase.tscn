@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://c18gcmgj02q1v"]
+
+[ext_resource type="Texture2D" uid="uid://c11vr0syh86h1" path="res://assets/Backgrounds/Laboratorio.png" id="1_63agt"]
+[ext_resource type="Script" uid="uid://bsx1a0vthoa8i" path="res://scenes/quests/story_quests/neuroecho/Desarrollo/sleep_trap.gd" id="3_mmsh4"]
+[ext_resource type="PackedScene" uid="uid://iu2q66clupc6" path="res://scenes/game_elements/characters/player/player.tscn" id="4_d7crt"]
+[ext_resource type="Texture2D" uid="uid://bfex7a7rfigf8" path="res://assets/personajes/Green Classic Ecology Branding Badge Logo.png" id="4_t6gsa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t6gsa"]
+radius = 0.918516
+
+[node name="Pase" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -3.0
+offset_top = -170.0
+offset_right = 2979.0
+offset_bottom = 1121.0
+texture = ExtResource("1_63agt")
+
+[node name="SleepTrap" type="Area2D" parent="."]
+position = Vector2(151, 44)
+script = ExtResource("3_mmsh4")
+
+[node name="Sprite2D" type="Sprite2D" parent="SleepTrap"]
+position = Vector2(2375, 760)
+rotation = 0.00174533
+scale = Vector2(0.368065, 0.400763)
+texture = ExtResource("4_t6gsa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SleepTrap"]
+position = Vector2(2376, 822)
+scale = Vector2(38.1155, 317.328)
+shape = SubResource("CircleShape2D_t6gsa")
+
+[node name="Player" parent="." instance=ExtResource("4_d7crt")]
+position = Vector2(196, 873)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+process_mode = 3
+position = Vector2(-9, -64)
+zoom = Vector2(1.7, 1.7)
+limit_left = 0
+limit_top = 0
+position_smoothing_enabled = true
+editor_draw_limits = true

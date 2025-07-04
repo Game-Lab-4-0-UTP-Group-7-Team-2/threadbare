@@ -1,19 +1,11 @@
-# SPDX-FileCopyrightText: The Threadbare Authors
-# SPDX-License-Identifier: MPL-2.0
-@tool
 class_name Player
 extends CharacterBody2D
 
 signal mode_changed(mode: Mode)
 
-## Controls how the player can interact with the world around them.
 enum Mode {
-	## Player can explore the world, interact with items and NPCs, but is not
-	## engaged in combat. Combat actions are not available in this mode.
 	COZY,
-	## Player is engaged in combat. Player can use combat actions.
 	FIGHTING,
-	## Player can't be controlled anymore.
 	DEFEATED,
 }
 
@@ -25,25 +17,17 @@ const REQUIRED_ANIMATION_FRAMES: Dictionary[StringName, int] = {
 }
 const DEFAULT_SPRITE_FRAME: SpriteFrames = preload("uid://vwf8e1v8brdp")
 
-## The character's name. This is used to highlight when the player's character
-## is speaking during dialogue.
 @export var player_name: String = "Player Name"
-
-## Controls how the player can interact with the world around them.
 @export var mode: Mode = Mode.COZY:
 	set = _set_mode
 @export_range(10, 100000, 10) var walk_speed: float = 300.0
 @export_range(10, 100000, 10) var run_speed: float = 500.0
 @export_range(10, 100000, 10) var stopping_step: float = 1500.0
 @export_range(10, 100000, 10) var moving_step: float = 4000.0
-
-## The SpriteFrames must have specific animations with a certain amount of frames.
-## See [member REQUIRED_ANIMATION_FRAMES].
 @export var sprite_frames: SpriteFrames = DEFAULT_SPRITE_FRAME:
 	set = _set_sprite_frames
 
 @export_group("Sounds")
-## Sound that plays for each step during the walk animation
 @export var walk_sound_stream: AudioStream = preload("uid://cx6jv2cflrmqu"):
 	set = _set_walk_sound_stream
 
@@ -54,6 +38,29 @@ var input_vector: Vector2
 @onready var player_sprite: AnimatedSprite2D = %PlayerSprite
 @onready var _walk_sound: AudioStreamPlayer2D = %WalkSound
 
+# 🧩 Minijuego
+@onready var clips_container := $"../ClipsContainer"
+@onready var timeline_container := $"../TimelineContainer"
+@onready var resultado_label := $"../Resultado Label"
+@onready var timer := $Timer
+
+var dragging_clip: Control = null
+var offset: Vector2 = Vector2.ZERO
+var correct_order: Array[String] = ["clip1", "clip2", "clip3", "clip4", "clip5"]
+
+
+func _ready() -> void:
+	_set_mode(mode)
+	_set_sprite_frames(sprite_frames)
+
+	# Comprobación de Timer
+	if timer != null:
+		timer.wait_time = 60
+		timer.one_shot = true
+		timer.timeout.connect(_on_timer_timeout)
+		timer.start()
+	else:
+		push_error("❌ Timer no encontrado en el nodo Player.")
 
 func _set_mode(new_mode: Mode) -> void:
 	var previous_mode: Mode = mode
@@ -73,7 +80,6 @@ func _set_mode(new_mode: Mode) -> void:
 	if mode != previous_mode:
 		mode_changed.emit(mode)
 
-
 func _set_sprite_frames(new_sprite_frames: SpriteFrames) -> void:
 	sprite_frames = new_sprite_frames
 	if not is_node_ready():
@@ -83,85 +89,68 @@ func _set_sprite_frames(new_sprite_frames: SpriteFrames) -> void:
 	player_sprite.sprite_frames = new_sprite_frames
 	update_configuration_warnings()
 
-
 func _toggle_player_behavior(behavior_node: Node2D, is_active: bool) -> void:
 	behavior_node.visible = is_active
 	behavior_node.process_mode = (
 		ProcessMode.PROCESS_MODE_INHERIT if is_active else ProcessMode.PROCESS_MODE_DISABLED
 	)
 
-
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray
 	for animation in REQUIRED_ANIMATION_FRAMES:
 		if not sprite_frames.has_animation(animation):
-			warnings.append("sprite_frames is missing the following animation: %s" % animation)
+			warnings.append("sprite_frames is missing animation: %s" % animation)
 		elif sprite_frames.get_frame_count(animation) != REQUIRED_ANIMATION_FRAMES[animation]:
-			warnings.append(
-				(
-					"sprite_frames animation %s has %d frames, but should have %d"
-					% [
-						animation,
-						sprite_frames.get_frame_count(animation),
-						REQUIRED_ANIMATION_FRAMES[animation]
-					]
-				)
-			)
+			warnings.append("sprite_frames animation %s has %d frames, should be %d" % [
+				animation,
+				sprite_frames.get_frame_count(animation),
+				REQUIRED_ANIMATION_FRAMES[animation]
+			])
 	return warnings
 
+func _set_walk_sound_stream(new_value: AudioStream) -> void:
+	walk_sound_stream = new_value
+	if not is_node_ready():
+		await ready
+	if _walk_sound:
+		_walk_sound.stream = walk_sound_stream
 
-func _ready() -> void:
-	_set_mode(mode)
-	_set_sprite_frames(sprite_frames)
+func _unhandled_input(event: InputEvent) -> void:
+	var axis: Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	input_vector = axis * (run_speed if Input.is_action_pressed("running") else walk_speed)
 
-
-func _unhandled_input(_event: InputEvent) -> void:
-	var axis: Vector2 = Input.get_vector(&"ui_left", &"ui_right", &"ui_up", &"ui_down")
-
-	var speed: float
-	if Input.is_action_pressed(&"running"):
-		speed = run_speed
-	else:
-		speed = walk_speed
-
-	input_vector = axis * speed
-
-
-## Returns [code]true[/code] if the player is running. When using an analogue joystick, this can be
-## [code]false[/code] even if the player is holding the "run" button, because the joystick may be
-## inclined only slightly.
-func is_running() -> bool:
-	# While walking diagonally with an analogue joystick, the input vector can be fractionally
-	# greater than walk_speed, due to trigonometric/floating-point inaccuracy.
-	return input_vector.length_squared() > (walk_speed * walk_speed) + 1.0
-
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			for clip in clips_container.get_children():
+				if clip.get_global_rect().has_point(event.global_position):
+					dragging_clip = clip
+					offset = clip.global_position - event.global_position
+					break
+		else:
+			if dragging_clip:
+				_check_clip_placement()
+				dragging_clip = null
 
 func _process(delta: float) -> void:
+	
 	if Engine.is_editor_hint():
 		return
 
 	if player_interaction.is_interacting or mode == Mode.DEFEATED:
 		velocity = Vector2.ZERO
-		return
-
-	var step: float
-	if input_vector.is_zero_approx():
-		step = stopping_step
 	else:
-		step = moving_step
+		var step: float = stopping_step if input_vector.is_zero_approx() else moving_step
+		velocity = velocity.move_toward(input_vector, step * delta)
+		move_and_slide()
 
-	velocity = velocity.move_toward(input_vector, step * delta)
+	if dragging_clip:
+		dragging_clip.global_position = get_global_mouse_position() + offset
 
-	move_and_slide()
+func is_running() -> bool:
+	return input_vector.length_squared() > (walk_speed * walk_speed) + 1.0
 
-
-func teleport_to(
-	tele_position: Vector2,
-	smooth_camera: bool = false,
-	look_side: Enums.LookAtSide = Enums.LookAtSide.UNSPECIFIED
-) -> void:
-	var camera: Camera2D = get_viewport().get_camera_2d()
-
+func teleport_to(tele_position: Vector2, smooth_camera := false, look_side := Enums.LookAtSide.UNSPECIFIED) -> void:
+	var camera := get_viewport().get_camera_2d()
 	if is_instance_valid(camera):
 		var smoothing_was_enabled: bool = camera.position_smoothing_enabled
 		camera.position_smoothing_enabled = smooth_camera
@@ -172,9 +161,36 @@ func teleport_to(
 	else:
 		global_position = tele_position
 
+func _check_clip_placement() -> void:
+	if not timeline_container or not clips_container or not resultado_label:
+		return
 
-func _set_walk_sound_stream(new_value: AudioStream) -> void:
-	walk_sound_stream = new_value
-	if not is_node_ready():
-		await ready
-	_walk_sound.stream = walk_sound_stream
+	var current_order: Array[String] = []
+	for slot in timeline_container.get_children():
+		var matched: bool = false
+		for clip in clips_container.get_children():
+			if clip.get_global_rect().intersects(slot.get_global_rect()):
+				current_order.append(clip.name)
+				matched = true
+				break
+		if not matched:
+			current_order.append("")  # Asegura que cada slot tenga posición, aunque esté vacío
+
+	if current_order == correct_order:
+		resultado_label.text = "¡Correcto!"
+		if timer:
+			timer.stop()
+	else:
+		resultado_label.text = "Inténtalo de nuevo"
+
+func _on_timer_timeout() -> void:
+	if resultado_label:
+		resultado_label.text = "¡Tiempo agotado!"
+
+
+var is_asleep = false
+
+func sleep():
+	is_asleep = true
+	velocity = Vector2.ZERO
+	print("Me estoy quedando dormido... 💤")
