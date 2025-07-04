@@ -1,12 +1,26 @@
 extends TextureButton
 
-var clip_id := ""
+var is_dragging = false
+var offset = Vector2.ZERO
+
+@export var player_path: NodePath
+@export var max_drag_distance: float = 100.0
+
+var player_node: Node2D
 
 func _ready():
-	clip_id = name  # Usa el nombre del nodo como ID (ej: clip_1)
+	player_node = get_node(player_path)
 
-func _get_drag_data(at_position):
-	var preview = duplicate()
-	preview.modulate.a = 0.6
-	set_drag_preview(preview)
-	return clip_id
+func _gui_input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			# Solo permite arrastrar si el jugador está cerca
+			if player_node and global_position.distance_to(player_node.global_position) <= max_drag_distance:
+				is_dragging = true
+				offset = get_global_mouse_position() - global_position
+		else:
+			is_dragging = false
+
+func _process(delta):
+	if is_dragging:
+		global_position = get_global_mouse_position() - offset

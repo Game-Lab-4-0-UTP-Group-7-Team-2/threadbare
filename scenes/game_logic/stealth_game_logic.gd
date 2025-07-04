@@ -28,3 +28,7 @@ func mostrar_resultado(texto: String, color: Color) -> void:
 
 func _on_button_pressed() -> void:
 	pass # Replace with function body.
+
+
+func _on_timer_timeout() -> void:
+	pass # Replace with function body.

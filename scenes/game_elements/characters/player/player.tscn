@@ -50,7 +50,7 @@ anim_speed_max = 1.0
 height = 42.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_blfj0"]
-size = Vector2(110, 80)
+size = Vector2(159, 263)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_je7p5"]
 size = Vector2(32, 47)
@@ -447,8 +447,8 @@ script = ExtResource("3_j0tly")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-5.99997, -58.9999)
-scale = Vector2(0.110185, 0.128148)
+position = Vector2(62.7501, 19.7501)
+scale = Vector2(0.2375, 0.244815)
 sprite_frames = ExtResource("2_blfj0")
 animation = &"idle"
 autoplay = "idle"
@@ -470,7 +470,7 @@ script = ExtResource("6_3in67")
 character = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerInteraction/InteractZone"]
-position = Vector2(47, -30)
+position = Vector2(67.5, 6.5)
 shape = SubResource("RectangleShape2D_blfj0")
 
 [node name="InteractMarker" type="Marker2D" parent="PlayerInteraction"]
@@ -482,10 +482,10 @@ unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 11.0
-offset_right = 1.0
-offset_bottom = 11.0
+offset_left = 122.0
+offset_top = 22.0
+offset_right = 122.0
+offset_bottom = 22.0
 grow_horizontal = 2
 grow_vertical = 2
 
