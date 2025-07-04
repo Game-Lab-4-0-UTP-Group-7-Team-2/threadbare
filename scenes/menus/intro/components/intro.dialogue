@@ -6,7 +6,8 @@
 do animation_player.play(&"delay_start")
 do animation_player.animation_finished
 do animation_player.play(&"sketches")
-[speed=0.5]You know that feeling you get when you wrap yourself in your favorite blanket? Like a cozy hug from a loved one.
-[speed=0.5]What if I told you there is a world made of fabric, not too far away and not too near, that used to feel just like that hug?
-[speed=0.5]This world was made of stitches and stories, and people were happy. Until ...
+[speed=0.5]«El núcleo del experimento colapsaba. Las alarmas eran un eco lejano entre el chisporroteo de los cables y las pantallas que fallaban. Nada pudo detenerlo. En un instante, la luz lo cubrió todo. Y el silencio fue absoluto.»
+[speed=0.5]«Oscuridad. Frío metálico bajo su piel. Respiración entrecortada. Elena abrió los ojos y la niebla invadió sus sentidos. Su brazo… un peso extraño, un artefacto que no recordaba. ¿Era real? ¿O un mal sueño?»
+[speed=0.5]«El Oráculo brillaba débil en su mano, pulsando al ritmo de un corazón que no era el suyo. La figura apareció entre la bruma. Iris. O algo que parecía ser Iris. Sus ojos no mostraban respuesta… solo reflejaban un pasado que quizá nunca existió.»
+[speed=0.5]«Y entonces, la presencia. Una sombra sin forma, sin rostro, pero que la conocía demasiado bien. La Entidad no necesitaba ser vista para ser temida. Estaba allí, aguardando el momento en que Elena dudara… el momento en que bajara la guardia.»
 => END
